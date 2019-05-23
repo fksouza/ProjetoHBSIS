@@ -1,0 +1,52 @@
+﻿@model IEnumerable<ProjetoHBSIS.Models.Contribuinte>
+
+@{
+    ViewData["Title"] = "Cadastro de Contribuinte";
+}
+
+<h2> @ViewData["Title"]</h2>
+
+<p>
+    <a asp-action="Create">Incluir Novo</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CPF)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumeroDepentedentes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RendaBrutaMensal)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CPF)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumeroDepentedentes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RendaBrutaMensal)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>                
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

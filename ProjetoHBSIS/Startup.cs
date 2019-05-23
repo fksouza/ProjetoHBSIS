@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using ProjetoHBSIS.Models;
+using ProjetoHBSIS.Services;
 
 namespace ProjetoHBSIS
 {
@@ -32,6 +35,14 @@ namespace ProjetoHBSIS
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddDbContext<ProjetoHBSISContext>(options =>
+                    options.UseMySql(Configuration.GetConnectionString("ProjetoHBSISContext"), builder =>
+                        builder.MigrationsAssembly("ProjetoHBSIS")));
+
+            services.AddScoped<ContribuinteService>();
+            services.AddScoped<SalarioMinimoService>();
+            services.AddScoped<ImpostodeRendaService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
