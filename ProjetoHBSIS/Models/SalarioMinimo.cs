@@ -10,12 +10,12 @@ namespace ProjetoHBSIS.Models
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "{0} Campo obrigatório!")]
+        [Required(ErrorMessage = "{0} - Campo obrigatório!")]
         [Display(Name = "Salário Mínimo")]
         [DisplayFormat(DataFormatString = "{0:F2}")]
         public double Valor { get; set; }
 
-        [Required(ErrorMessage = "{0} Campo obrigatório!")]
+        [Required(ErrorMessage = "{0} - Campo obrigatório!")]
         [Display(Name = "Ano")]                
         public string Ano { get; set; }
 

@@ -2,117 +2,25 @@
     ViewData["Title"] = "Projeto HBSIS";
 }
 
-<h2>Cálculo de IR do Contribuinte</h2>
-
 <hr />
+<div class="jumbotron">
+    <h2 class="text-center">Projeto HBSIS</h2>
 
-<div class="row">
+    <p class="text-center">Bem-Vindo ao Sistema HBSIS para Cálculo de Imposto de Renda do contribuinte.</p>
 
-    <div class="col-md-12">
+    <ul class="list-group">
+        <li class="list-group-item active">
+            Instruções.
+        </li>
+        <li class="list-group-item">
+            1 - Incluia os contribintes no menu <strong>Contribuinte</strong> .
+        </li>
+        <li class="list-group-item">
+            2 - Inclua o salário mínimo no menu <strong>Salário Mínumo.</strong> 
+        </li>
+        <li class="list-group-item">
+            3 - Por último clique no menu <strong>Imposto de Renda</strong> .
+        </li>
+    </ul>
 
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#contribuinte" data-toggle="tab" aria-expanded="true">Contribuintes</a></li>
-            <li class=""><a href="#salariominimo" data-toggle="tab" aria-expanded="false">Salário Mínimo</a></li>
-            <li class=""><a href="#resultado" data-toggle="tab" aria-expanded="false">Resultado</a></li>
-        </ul>
-        <div id="myTabContent" class="tab-content">
-
-            <div class="tab-pane fade active in" id="contribuinte">
-
-                <form class="col-md-12" style="margin-top:7px">
-
-                    <div class="form-group col-md-2">
-                        <label for="inputcpf" class="control-label">CPF</label>
-                        <input type="text" class="form-control" id="inputcpf" placeholder="999.999.999-99">
-                    </div>
-                    <div class="form-group col-md-5">
-                        <label for="inputnome" class="control-label">Nome</label>
-                        <input type="password" class="form-control" id="inputnome" placeholder="Nome">
-                    </div>
-                    <div class="form-group col-md-2">
-                        <label for="inputdependentes" class="control-label">Nº Dependentes</label>
-                        <input type="number" class="form-control" id="inputdependentes" placeholder="Nº Dependentes">
-                    </div>
-                    <div class="form-group col-md-2">
-                        <label for="inputrenda" class="control-label">Renda Bruta Mensal</label>
-                        <input type="text" class="form-control" id="inputrenda" placeholder="0.00">
-                    </div>
-                    <div class="form-group col-md-3">
-                        <input type="submit" value="Salvar" class="btn btn-primary" />
-                    </div>
-
-                </form>
-
-            </div>
-
-            <div class="tab-pane fade" id="salariominimo">
-
-                <form class="col-md-3" style="margin-top:7px">
-
-                    <div class="form-group col-md-10">
-                        <label for="inputsalario" class="control-label">Salário Mínimo</label>
-                        <input type="text" class="form-control" id="inputsalario" placeholder="0.00">
-                    </div>
-                    <div class="form-group col-md-4">
-                        <input type="submit" value="Finalizar" class="btn btn-primary" />
-                    </div>
-
-                </form>
-
-            </div>
-
-            <div class="tab-pane fade" id="resultado">
-
-                <div style="margin-top:7px">
-
-                    <table class="table table-striped table-hover">
-                        <thead class="bg-primary">
-                            <tr>
-                                <th>Nome</th>
-                                <th>Valor do IR</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-
-                                <td>Column content</td>
-                                <td>Column content</td>
-                            </tr>
-                            <tr>
-
-                                <td>Column content</td>
-                                <td>Column content</td>
-                            </tr>
-                            <tr>
-
-                                <td>Column content</td>
-                                <td>Column content</td>
-                            </tr>
-                            <tr>
-
-                                <td>Column content</td>
-                                <td>Column content</td>
-                            </tr>
-                            <tr>
-
-                                <td>Column content</td>
-                                <td>Column content</td>
-                            </tr>
-                            <tr>
-
-                                <td>Column content</td>
-                                <td>Column content</td>
-                            </tr>
-                            <tr>
-
-                                <td>Column content</td>
-                                <td>Column content</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-    </div>
 </div>

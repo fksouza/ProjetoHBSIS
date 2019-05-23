@@ -1,23 +1,50 @@
 ﻿@model IEnumerable<ProjetoHBSIS.Models.ImpostodeRenda>
 
 @{
-    ViewData["Title"] = "Imposto de Renda por Contribuinte";
+    ViewData["Title"] = "Cálculo do Imposto de Renda por Contribuinte";
 }
 
 <h2>@ViewData["Title"]</h2>
 
+<hr />
 <table class="table">
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.Contribuinte.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Contribuinte.CPF)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Contribuinte.NumeroDepentedentes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Contribuinte.RendaBrutaMensal)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Valor)
             </th>
-            <th></th>
+            <th>
+
+            </th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Contribuinte.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Contribuinte.CPF)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Contribuinte.NumeroDepentedentes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Contribuinte.RendaBrutaMensal)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Valor)
             </td>

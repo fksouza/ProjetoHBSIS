@@ -16,11 +16,11 @@ namespace ProjetoHBSIS.Controllers
             _impostodeRendaService = impostodeRendaService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var listaImpostodeRenda = _impostodeRendaService.FindAllAsync();
 
-            return View(listaImpostodeRenda);
+            return View(await listaImpostodeRenda);
         }
     }
 }
