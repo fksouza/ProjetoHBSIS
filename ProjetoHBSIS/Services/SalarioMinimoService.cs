@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProjetoHBSIS.Models;
 using SalesWebMvc.Services.Exceptions;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,28 +16,23 @@ namespace ProjetoHBSIS.Services
             _context = context;
         }
 
-        public async Task<List<SalarioMinimo>> FindAllAsync()
+        public async Task<List<SalarioMinimo>> ListarSalarioMinimoAsync()
         {
             return await _context.SalarioMinimo.ToListAsync();
         }
 
-        public async Task InsertAsync(SalarioMinimo obj)
+        public async Task IncluirSalarioMinimoAsync(SalarioMinimo obj)
         {
             _context.Add(obj);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<SalarioMinimo> FindByIdAsync(int id)
+        public async Task<SalarioMinimo> ListarSalarioMinimoPorIdAsync(int id)
         {
             return await _context.SalarioMinimo.FirstOrDefaultAsync(obj => obj.Id == id);
         }
 
-        public double ValorSalarioMinimo()
-        {
-            return _context.SalarioMinimo.Sum(v => v.Valor);
-        }
-
-        public async Task RemoveAsync(int id)
+        public async Task ExcluirSalarioMinimoAsync(int id)
         {
             try
             {
@@ -52,7 +46,7 @@ namespace ProjetoHBSIS.Services
             }
         }
 
-        public async Task UpdateAsync(SalarioMinimo obj)
+        public async Task AtualizarSalarioMinimoAsync(SalarioMinimo obj)
         {
             bool hasAny = await _context.SalarioMinimo.AnyAsync(x => x.Id == obj.Id);
             if (!hasAny)

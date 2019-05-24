@@ -24,7 +24,7 @@ namespace ProjetoHBSIS.Controllers
                 
         public async Task<IActionResult> Index()
         {
-            var listacontribuinte = _contribuinteService.FindAllAsync();
+            var listacontribuinte = _contribuinteService.ListarContribuinteAsync();
 
             return View(await listacontribuinte);
         }
@@ -40,7 +40,7 @@ namespace ProjetoHBSIS.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _contribuinteService.InsertAsync(contribuinte);
+                await _contribuinteService.InsereContribuinteAsync(contribuinte);
                 return RedirectToAction(nameof(Index));
             }
             return View(contribuinte);
@@ -50,13 +50,13 @@ namespace ProjetoHBSIS.Controllers
         {
             if (id == null)
             {
-                return RedirectToAction(nameof(Error), new { message = "Id not provided" });
+                return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" });
             }
 
-            var obj = await _contribuinteService.FindByIdAsync(id.Value);
+            var obj = await _contribuinteService.ListarContribuintePorIdAsync(id.Value);
             if (obj == null)
             {
-                return RedirectToAction(nameof(Error), new { message = "Id not found" });
+                return RedirectToAction(nameof(Error), new { message = "Id não encontrado!" });
             }
 
             return View(obj);
@@ -72,11 +72,11 @@ namespace ProjetoHBSIS.Controllers
             }
             if (id != contribuinte.Id)
             {
-                return RedirectToAction(nameof(Error), new { message = "Id mismatch" });
+                return RedirectToAction(nameof(Error), new { message = "Id incompatível!" });
             }
             try
             {
-                await _contribuinteService.UpdateAsync(contribuinte);
+                await _contribuinteService.AtualizarContribuinteAsync(contribuinte);
                 return RedirectToAction(nameof(Index));
             }
             catch (ApplicationException e)
@@ -93,7 +93,7 @@ namespace ProjetoHBSIS.Controllers
                 return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" });
             }
 
-            var obj = await _contribuinteService.FindByIdAsync(id.Value);
+            var obj = await _contribuinteService.ListarContribuintePorIdAsync(id.Value);
             if (obj == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não encontrado!" });
@@ -109,7 +109,7 @@ namespace ProjetoHBSIS.Controllers
         {
             try
             {
-                await _contribuinteService.RemoveAsync(id);
+                await _contribuinteService.ExcluirContribuinteAsync(id);
                 return RedirectToAction(nameof(Index));
             }
             catch (IntegrityException e)

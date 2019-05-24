@@ -23,7 +23,7 @@ namespace ProjetoHBSIS.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var listaSalarioMinimo = _salarioMinimoService.FindAllAsync();
+            var listaSalarioMinimo = _salarioMinimoService.ListarSalarioMinimoAsync();
 
             return View(await listaSalarioMinimo);
         }
@@ -39,7 +39,7 @@ namespace ProjetoHBSIS.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _salarioMinimoService.InsertAsync(salarioMinimo);
+                await _salarioMinimoService.IncluirSalarioMinimoAsync(salarioMinimo);
                 return RedirectToAction(nameof(Index));
             }
             return View(salarioMinimo);
@@ -49,13 +49,13 @@ namespace ProjetoHBSIS.Controllers
         {
             if (id == null)
             {
-                return RedirectToAction(nameof(Error), new { message = "Id not provided" });
+                return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" });
             }
 
-            var obj = await _salarioMinimoService.FindByIdAsync(id.Value);
+            var obj = await _salarioMinimoService.ListarSalarioMinimoPorIdAsync(id.Value);
             if (obj == null)
             {
-                return RedirectToAction(nameof(Error), new { message = "Id not found" });
+                return RedirectToAction(nameof(Error), new { message = "Id não encontrado!" });
             }
 
             return View(obj);
@@ -71,11 +71,11 @@ namespace ProjetoHBSIS.Controllers
             }
             if (id != salarioMinimo.Id)
             {
-                return RedirectToAction(nameof(Error), new { message = "Id mismatch" });
+                return RedirectToAction(nameof(Error), new { message = "Id incompatível!" });
             }
             try
             {
-                await _salarioMinimoService.UpdateAsync(salarioMinimo);
+                await _salarioMinimoService.AtualizarSalarioMinimoAsync(salarioMinimo);
                 return RedirectToAction(nameof(Index));
             }
             catch (ApplicationException e)
@@ -92,7 +92,7 @@ namespace ProjetoHBSIS.Controllers
                 return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" });
             }
 
-            var obj = await _salarioMinimoService.FindByIdAsync(id.Value);
+            var obj = await _salarioMinimoService.ListarSalarioMinimoPorIdAsync(id.Value);
             if (obj == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não encontrado!" });
@@ -108,7 +108,7 @@ namespace ProjetoHBSIS.Controllers
         {
             try
             {
-                await _salarioMinimoService.RemoveAsync(id);
+                await _salarioMinimoService.ExcluirSalarioMinimoAsync(id);
                 return RedirectToAction(nameof(Index));
             }
             catch (IntegrityException e)

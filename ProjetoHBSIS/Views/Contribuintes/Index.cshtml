@@ -9,9 +9,9 @@
 <p>
     <a asp-action="Create" class="btn btn-default">Incluir Novo</a>
 </p>
-<table class="table">
+<table class="table table-striped table-hover">
     <thead>
-        <tr>
+        <tr class="info">
             <th>
                 @Html.DisplayNameFor(model => model.Nome)
             </th>
@@ -50,3 +50,29 @@
 }
     </tbody>
 </table>
+
+<script>
+
+    //function FormataCpf() {        
+    //    var cpfCnpjFormatado = "000.000.000-99";
+    //    $(".CPF").text(cpfCnpjFormatado);
+    //}
+    //var cfpCnpj = $(".CPF").text();
+    //var cpfCnpjFormatado = "000.000.000-99";
+    //$(".CPF").text(cpfCnpjFormatado);
+
+    //function FormataCPF() {
+    //    alert("Teste");
+    //    $(".CPF").mask("999.999.999-99");
+    //}
+
+    //$(document).ready(function () {
+    //    $(".CPF").mask("999.999.999-99");
+    //});
+
+    $(document).ready(function () {        
+        $("#item_CPF").mask("###.###.###-##");
+    });
+    
+
+</script>

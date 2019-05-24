@@ -1,9 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProjetoHBSIS.Models;
 using SalesWebMvc.Services.Exceptions;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ProjetoHBSIS.Services
@@ -12,33 +10,38 @@ namespace ProjetoHBSIS.Services
     {
         private readonly ProjetoHBSISContext _context;
         private readonly SalarioMinimoService _salarioMinimoService;
-        
+
+        //Pecentual de 5% de desconto por dependente.
         public int PercDesconto;
+
+        public ContribuinteService()
+        {
+        }
 
         public ContribuinteService(ProjetoHBSISContext context, SalarioMinimoService salarioMinimoService)
         {
-            _context = context;            
+            _context = context;
             _salarioMinimoService = salarioMinimoService;
             PercDesconto = 5;
         }
 
-        public async Task<List<Contribuinte>> FindAllAsync()
+        public async Task<List<Contribuinte>> ListarContribuinteAsync()
         {
             return await _context.Contribuinte.ToListAsync();
         }
 
-        public async Task InsertAsync(Contribuinte obj)
+        public async Task InsereContribuinteAsync(Contribuinte obj)
         {
             _context.Add(obj);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Contribuinte> FindByIdAsync(int id)
+        public async Task<Contribuinte> ListarContribuintePorIdAsync(int id)
         {
             return await _context.Contribuinte.FirstOrDefaultAsync(obj => obj.Id == id);
         }
 
-        public async Task RemoveAsync(int id)
+        public async Task ExcluirContribuinteAsync(int id)
         {
             try
             {
@@ -52,7 +55,7 @@ namespace ProjetoHBSIS.Services
             }
         }
 
-        public async Task UpdateAsync(Contribuinte obj)
+        public async Task AtualizarContribuinteAsync(Contribuinte obj)
         {
             bool hasAny = await _context.Contribuinte.AnyAsync(x => x.Id == obj.Id);
             if (!hasAny)
@@ -70,16 +73,17 @@ namespace ProjetoHBSIS.Services
             }
         }
 
-        public double CalculaDescontoPorDependentes(Contribuinte contribuinte)
+        public double CalculaDescontoPorDependentes(Contribuinte contribuinte, double salarioMinimo)
         {
-            var perctotal = contribuinte.NumeroDepentedentes * PercDesconto;
-            var ValorSalarioMinimo = _salarioMinimoService.ValorSalarioMinimo();
-            return (ValorSalarioMinimo * perctotal) / 100;
+            var percTotal = contribuinte.NumeroDepentedentes * PercDesconto;                        
+            double descontoTotal = (salarioMinimo * percTotal) / 100;
+
+            return descontoTotal;
         }
 
-        public double CalculaRendaLiquida(Contribuinte contribuinte)
+        public double CalculaRendaLiquida(Contribuinte contribuinte, double salarioMinimo)
         {
-            double rendaLiquida = contribuinte.RendaBrutaMensal - CalculaDescontoPorDependentes(contribuinte);
+            double rendaLiquida = contribuinte.RendaBrutaMensal - CalculaDescontoPorDependentes(contribuinte, salarioMinimo);
 
             return rendaLiquida;
         }

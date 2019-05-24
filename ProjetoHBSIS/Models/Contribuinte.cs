@@ -1,12 +1,4 @@
-﻿using ProjetoHBSIS.Services;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using ProjetoHBSIS.Models;
-using SalesWebMvc.Services.Exceptions;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ProjetoHBSIS.Models
 {
@@ -31,29 +23,16 @@ namespace ProjetoHBSIS.Models
         [DisplayFormat(DataFormatString = "{0:F2}")]
         public double RendaBrutaMensal { get; set; }
 
-        private readonly ContribuinteService _contribuinteService;
-
         public Contribuinte()
         {
         }
 
-        public Contribuinte(string nome, string cPF, int numeroDepentedentes, double rendaBrutaMensal, ContribuinteService contribuinteService)
+        public Contribuinte(string nome, string cpf, int numeroDepentedentes, double rendaBrutaMensal)
         {
             Nome = nome;
-            CPF = cPF;
+            CPF = cpf;
             NumeroDepentedentes = numeroDepentedentes;
-            RendaBrutaMensal = rendaBrutaMensal;
-            _contribuinteService = contribuinteService;
-        }
-
-        public double CalculaDescontoPorDependentes(Contribuinte contribuinte)
-        {
-            return _contribuinteService.CalculaDescontoPorDependentes(contribuinte);
-        }
-
-        public double CalculaRendaLiquida(Contribuinte contribuinte)
-        {
-            return _contribuinteService.CalculaRendaLiquida(contribuinte);
+            RendaBrutaMensal = rendaBrutaMensal;           
         }
     }
 }
