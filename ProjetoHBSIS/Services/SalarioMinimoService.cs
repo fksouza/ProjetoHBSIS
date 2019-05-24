@@ -33,6 +33,11 @@ namespace ProjetoHBSIS.Services
             return await _context.SalarioMinimo.FirstOrDefaultAsync(obj => obj.Id == id);
         }
 
+        public double ValorSalarioMinimo()
+        {
+            return _context.SalarioMinimo.Sum(v => v.Valor);
+        }
+
         public async Task RemoveAsync(int id)
         {
             try
@@ -43,7 +48,7 @@ namespace ProjetoHBSIS.Services
             }
             catch (DbUpdateException e)
             {
-                throw new IntegrityException("Não foi possível deletar o Salário Mínimo!");
+                throw new IntegrityException("Não foi possível deletar o Salário Mínimo!" + e.Message);
             }
         }
 
@@ -64,7 +69,6 @@ namespace ProjetoHBSIS.Services
                 throw new DbConcurrencyException(e.Message);
             }
         }
-
-
+       
     }
 }

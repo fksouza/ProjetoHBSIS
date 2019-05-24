@@ -7,9 +7,9 @@
 <h2>@ViewData["Title"]</h2>
 
 <p>
-    <a asp-action="Create" class="btn btn-default">Incluir Novo</a>
+    <a id="btnIncluir" asp-action="Create" class="btn btn-default">Incluir Novo</a>
 </p>
-<table class="table">
+<table id="TableSalario" class="table">
     <thead>
         <tr>
             <th>
@@ -22,19 +22,35 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Valor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ano)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Excluir</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Valor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ano)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Excluir</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var rowCount = $('#TableSalario tr').length - 1;        
+        if (rowCount > 0) {
+            $("#btnIncluir").hide();
+        }
+        else {
+            $("#btnIncluir").show();
+        }
+    });
+
+</script>

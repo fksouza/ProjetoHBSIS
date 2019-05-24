@@ -11,10 +11,15 @@ namespace ProjetoHBSIS.Services
     public class ContribuinteService
     {
         private readonly ProjetoHBSISContext _context;
+        private readonly SalarioMinimoService _salarioMinimoService;
+        
+        public int PercDesconto;
 
-        public ContribuinteService(ProjetoHBSISContext context)
+        public ContribuinteService(ProjetoHBSISContext context, SalarioMinimoService salarioMinimoService)
         {
-            _context = context;
+            _context = context;            
+            _salarioMinimoService = salarioMinimoService;
+            PercDesconto = 5;
         }
 
         public async Task<List<Contribuinte>> FindAllAsync()
@@ -43,7 +48,7 @@ namespace ProjetoHBSIS.Services
             }
             catch (DbUpdateException e)
             {
-                throw new IntegrityException("Não foi possível deletar o contribuinte!");
+                throw new IntegrityException("Não foi possível deletar o contribuinte!" + e.Message);
             }
         }
 
@@ -65,5 +70,18 @@ namespace ProjetoHBSIS.Services
             }
         }
 
+        public double CalculaDescontoPorDependentes(Contribuinte contribuinte)
+        {
+            var perctotal = contribuinte.NumeroDepentedentes * PercDesconto;
+            var ValorSalarioMinimo = _salarioMinimoService.ValorSalarioMinimo();
+            return (ValorSalarioMinimo * perctotal) / 100;
+        }
+
+        public double CalculaRendaLiquida(Contribuinte contribuinte)
+        {
+            double rendaLiquida = contribuinte.RendaBrutaMensal - CalculaDescontoPorDependentes(contribuinte);
+
+            return rendaLiquida;
+        }
     }
 }
