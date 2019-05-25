@@ -9,7 +9,7 @@
 <p>
     <a asp-action="Create" class="btn btn-default">Incluir Novo</a>
 </p>
-<table class="table table-striped table-hover">
+<table id="tbContribuuinte" class="table table-striped table-hover">
     <thead>
         <tr class="info">
             <th>
@@ -33,7 +33,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Nome)
             </td>
-            <td>
+            <td id="CPF">
                 @Html.DisplayFor(modelItem => item.CPF)
             </td>
             <td>
@@ -51,28 +51,28 @@
     </tbody>
 </table>
 
-<script>
+<script type="text/javascript">
 
-    //function FormataCpf() {        
-    //    var cpfCnpjFormatado = "000.000.000-99";
-    //    $(".CPF").text(cpfCnpjFormatado);
-    //}
-    //var cfpCnpj = $(".CPF").text();
-    //var cpfCnpjFormatado = "000.000.000-99";
-    //$(".CPF").text(cpfCnpjFormatado);
-
-    //function FormataCPF() {
-    //    alert("Teste");
-    //    $(".CPF").mask("999.999.999-99");
-    //}
-
-    //$(document).ready(function () {
-    //    $(".CPF").mask("999.999.999-99");
-    //});
-
-    $(document).ready(function () {        
-        $("#item_CPF").mask("###.###.###-##");
+    $(document).ready(function () {
+        loadPage();
     });
-    
+
+    function loadPage() {
+
+        $('.table tr').each(function () {
+            $(this).find('#CPF').html($(this).find('#CPF').text().replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4"));
+        });
+
+        tableSemRegistros();
+    }
+
+    function tableSemRegistros() {
+        var rowCount = $('#tbContribuuinte tr').length;
+       
+        if (rowCount == 1) {
+            $('#tbContribuuinte > tbody').html("Nenhum contribuinte cadastrado!");
+        }
+   
+    }
 
 </script>

@@ -9,8 +9,7 @@ namespace ProjetoHBSIS.Services
     public class ContribuinteService
     {
         private readonly ProjetoHBSISContext _context;
-        private readonly SalarioMinimoService _salarioMinimoService;
-
+        
         //Pecentual de 5% de desconto por dependente.
         public int PercDesconto;
 
@@ -18,10 +17,9 @@ namespace ProjetoHBSIS.Services
         {
         }
 
-        public ContribuinteService(ProjetoHBSISContext context, SalarioMinimoService salarioMinimoService)
+        public ContribuinteService(ProjetoHBSISContext context)
         {
-            _context = context;
-            _salarioMinimoService = salarioMinimoService;
+            _context = context;            
             PercDesconto = 5;
         }
 

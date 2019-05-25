@@ -53,10 +53,11 @@ namespace ProjetoHBSIS.Services
         {
             try
             {
-                //Remove todos os itens da tabela Imposto de Renda e recalcula.
+                //Remove todos os itens da tabela Imposto de Renda.
                 await ExcluirImpostodeRenda();
 
                 var impostodeRenda = new ImpostodeRenda();
+                List<ImpostodeRenda> listaImpostodeRenda = new List<ImpostodeRenda>();
 
                 var salarioMinimo = _salarioMinimoService.ListarSalarioMinimoAsync();
                 int salarioMinimoId = salarioMinimo.Result.Select(sl => sl.Id).FirstOrDefault();
@@ -64,16 +65,21 @@ namespace ProjetoHBSIS.Services
 
                 var listaContribuinte = _contribuinteService.ListarContribuinteAsync();
 
-                for (int i = 0; i < listaContribuinte.Result.Count; i++)
+                if (listaContribuinte.Result.Count > 0)
                 {
-                    //Inicia o cálculo do Imposto de renda do contribuinte.
-                    impostodeRenda = new ImpostodeRenda { ContribuinteId = listaContribuinte.Result[i].Id, SalarioMinimoId = salarioMinimoId, Valor = CalcularAliquota(listaContribuinte.Result[i], salarioMinimoValor) };
-                    await IncluirImpostodeRendaAsync(impostodeRenda);
+                    for (int i = 0; i < listaContribuinte.Result.Count; i++)
+                    {
+                        //Inicia o cálculo do Imposto de renda do contribuinte.
+                        impostodeRenda = new ImpostodeRenda { ContribuinteId = listaContribuinte.Result[i].Id, SalarioMinimoId = salarioMinimoId, Valor = CalcularAliquota(listaContribuinte.Result[i], salarioMinimoValor) };
+                        await IncluirImpostodeRendaAsync(impostodeRenda);
+                    }
+
+                    listaImpostodeRenda = await ListarImpostodeRendaAsync();
+
+                    return listaImpostodeRenda;
                 }
 
-                var listaImpostodeRenda = ListarImpostodeRendaAsync();
-
-                return await listaImpostodeRenda;
+                return listaImpostodeRenda;
             }
             catch (ApplicationException e)
             {

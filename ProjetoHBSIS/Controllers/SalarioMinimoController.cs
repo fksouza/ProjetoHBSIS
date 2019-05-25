@@ -13,7 +13,6 @@ namespace ProjetoHBSIS.Controllers
 {
     public class SalarioMinimoController : Controller
     {
-
         private readonly SalarioMinimoService _salarioMinimoService;
 
         public SalarioMinimoController(SalarioMinimoService salarioMinimoService)

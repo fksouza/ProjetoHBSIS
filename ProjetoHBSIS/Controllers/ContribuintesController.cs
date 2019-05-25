@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using ProjetoHBSIS.Models;
 using ProjetoHBSIS.Models.ViewModels;
 using ProjetoHBSIS.Services;
 using SalesWebMvc.Services.Exceptions;
+using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace ProjetoHBSIS.Controllers
 {

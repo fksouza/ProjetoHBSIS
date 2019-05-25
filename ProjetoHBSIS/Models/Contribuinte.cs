@@ -11,7 +11,6 @@ namespace ProjetoHBSIS.Models
         public string Nome { get; set; }
 
         [Required(ErrorMessage = "{0} - Campo obrigatório!")]
-        [StringLength(11, MinimumLength = 11, ErrorMessage = "O CPF deve conter {2} dígitos!")]
         public string CPF { get; set; }
 
         [Required(ErrorMessage = "{0} - Campo obrigatório!")]
@@ -19,8 +18,8 @@ namespace ProjetoHBSIS.Models
         public int NumeroDepentedentes { get; set; }
 
         [Required(ErrorMessage = "{0} - Campo obrigatório!")]
-        [Display(Name = "Renda Bruta Mensal")]
-        [DisplayFormat(DataFormatString = "{0:F2}")]
+        [Display(Name = "Renda Bruta Mensal")]       
+        [DataType(DataType.Currency)]        
         public double RendaBrutaMensal { get; set; }
 
         public Contribuinte()

@@ -3,40 +3,62 @@
 
 //Referência - https://www.devmedia.com.br/validar-cpf-com-javascript/23916
 
-function ValidaCPF(strCPF) {
-    var Soma;
-    var Resto;
-    Soma = 0;
-    if (strCPF == "00000000000") {
-        $("#alertCPF").text("CPF " + strCPF + " Inválido!");
-        $("#cpf").val("");
-        $("#cpf").focus();
+function ValidaCPF(cpf) {
+
+    cpf = cpf.replace(/[^\d]+/g, '');
+
+    if (cpf == '') {
+        MessageErrorCPF(cpf);
         return false;
-    };
+    } 
+    // Elimina CPFs invalidos conhecidos	
+    if (cpf.length != 11 ||
+        cpf == "00000000000" ||
+        cpf == "11111111111" ||
+        cpf == "22222222222" ||
+        cpf == "33333333333" ||
+        cpf == "44444444444" ||
+        cpf == "55555555555" ||
+        cpf == "66666666666" ||
+        cpf == "77777777777" ||
+        cpf == "88888888888" ||
+        cpf == "99999999999") {
 
-    for (i = 1; i <= 9; i++) Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (11 - i);
-    Resto = (Soma * 10) % 11;
-
-    if ((Resto == 10) || (Resto == 11)) Resto = 0;
-    if (Resto != parseInt(strCPF.substring(9, 10))) {
-        $("#alertCPF").text("CPF " + strCPF + " Inválido!");
-        $("#cpf").val("");
-        $("#cpf").focus();
+        MessageErrorCPF(cpf);
+        return false;
+    }
+    
+    // Valida 1o digito	
+    add = 0;
+    for (i = 0; i < 9; i++)
+        add += parseInt(cpf.charAt(i)) * (10 - i);
+    rev = 11 - (add % 11);
+    if (rev == 10 || rev == 11)
+        rev = 0;
+    if (rev != parseInt(cpf.charAt(9))) {
+        MessageErrorCPF(cpf);
+        return false;
+    }
+       
+    // Valida 2o digito	
+    add = 0;
+    for (i = 0; i < 10; i++)
+        add += parseInt(cpf.charAt(i)) * (11 - i);
+    rev = 11 - (add % 11);
+    if (rev == 10 || rev == 11)
+        rev = 0;
+    if (rev != parseInt(cpf.charAt(10))) {
+        MessageErrorCPF(cpf);
         return false;
     }
 
-    Soma = 0;
-    for (i = 1; i <= 10; i++) Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (12 - i);
-    Resto = (Soma * 10) % 11;
+    $("#alertCPF").text("");
+    return true;   
 
-    if ((Resto == 10) || (Resto == 11)) Resto = 0;
-    if (Resto != parseInt(strCPF.substring(10, 11))) {
-        $("#alertCPF").text("CPF " + strCPF + " Inválido!");
-        $("#cpf").val("");
-        $("#cpf").focus();
-        return false;
-    }
+}
 
-    $("#alertCPF").text("")
-    return true;
+function MessageErrorCPF(cpf) {
+    $("#alertCPF").text("CPF " + cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4") + " Inválido!");
+    $("#cpf").val("");
+    $("#cpf").focus();
 }

@@ -1,9 +1,4 @@
-﻿using ProjetoHBSIS.Services;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ProjetoHBSIS.Models
 {
@@ -12,7 +7,7 @@ namespace ProjetoHBSIS.Models
         public int Id { get; set; }
 
         [Display(Name = "Imposto de Renda")]
-        [DisplayFormat(DataFormatString = "{0:F2}")]
+        [DataType(DataType.Currency)]
         public double Valor { get; set; }
 
         public Contribuinte Contribuinte { get; set; }
@@ -24,10 +19,9 @@ namespace ProjetoHBSIS.Models
         {
         }
 
-        public ImpostodeRenda(double valor, SalarioMinimo salarioMinimo)
+        public ImpostodeRenda(double valor)
         {
-            Valor = valor;
-            SalarioMinimo = salarioMinimo;                        
+            Valor = valor;                                   
         }
 
     }

@@ -18,7 +18,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="CPF" class="control-label"></label>
-                <input id="cpf" maxlength="11" asp-for="CPF" class="form-control" onblur="ValidaCPF(this.value);" />
+                <input id="cpf" asp-for="CPF" class="form-control" onblur="ValidaCPF(this.value);" />
                 <span id="alertCPF" asp-validation-for="CPF" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -28,7 +28,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="RendaBrutaMensal" class="control-label"></label>
-                <input asp-for="RendaBrutaMensal" class="form-control" />
+                <input id="rendaBruta" asp-for="RendaBrutaMensal" class="form-control" />
                 <span asp-validation-for="RendaBrutaMensal" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -46,4 +46,10 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
 
+<script>
 
+    $(document).ready(function () {
+        $('#cpf').mask('000.000.000-00', { reverse: true });       
+    });
+
+</script>
